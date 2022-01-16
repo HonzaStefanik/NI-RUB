@@ -1,0 +1,6 @@
+# frozen_string_literal: true
+
+# 2.7.0 because I can't get 3 installed for some reason
+ruby '2.7.0'
+
+gem 'activerecord', '~> 6.0.1'
