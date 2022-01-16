@@ -3,6 +3,8 @@ version: '3'
 services:
   database:
     image: "postgres"
+    ports:
+      - "5432:5432"
     # uncomment to get persistent data when starting up and shutting down the container
     #volumes:
     #  - database-data:/var/lib/postgresql/data/
