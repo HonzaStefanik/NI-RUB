@@ -1,0 +1,8 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: postgresql://localhost:5432/ruby_sem_project
+  pool: 5
+  username: root
+  password:
+
