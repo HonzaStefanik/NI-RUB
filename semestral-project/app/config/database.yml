@@ -1,8 +1,6 @@
-development:
-  adapter: postgresql
-  encoding: unicode
-  database: postgresql://172.20.0.5:5432/ruby_sem_project
-  pool: 5
-  username: root
-  password: root
-
+host: 172.20.0.5
+adapter: postgresql
+encoding: utf-8
+database: ruby_sem_project
+username: postgres
+password: root
