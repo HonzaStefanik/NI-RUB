@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 5) do
+ActiveRecord::Schema.define(version: 6) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,12 +18,8 @@ ActiveRecord::Schema.define(version: 5) do
   create_table "answer", force: :cascade do |t|
     t.text "answer"
     t.boolean "correct"
-  end
-
-  create_table "app_user", force: :cascade do |t|
-    t.string "username"
-    t.string "password"
-    t.string "salt"
+    t.bigint "quiz_id"
+    t.index ["quiz_id"], name: "index_answer_on_quiz_id"
   end
 
   create_table "category", force: :cascade do |t|
@@ -31,13 +27,30 @@ ActiveRecord::Schema.define(version: 5) do
     t.text "description"
   end
 
+  create_table "category_quiz", id: false, force: :cascade do |t|
+    t.bigint "quiz_id"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_category_quiz_on_category_id"
+    t.index ["quiz_id"], name: "index_category_quiz_on_quiz_id"
+  end
+
   create_table "question", force: :cascade do |t|
     t.text "question"
+    t.bigint "quiz_id"
+    t.index ["quiz_id"], name: "index_question_on_quiz_id"
   end
 
   create_table "quiz", force: :cascade do |t|
     t.string "name"
     t.text "description"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_quiz_on_user_id"
+  end
+
+  create_table "user", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+    t.string "salt"
   end
 
 end
