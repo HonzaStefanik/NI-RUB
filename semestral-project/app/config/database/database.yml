@@ -1,4 +1,5 @@
 host: 172.20.0.5
+port: 5432
 adapter: postgresql
 encoding: utf-8
 database: ruby_sem_project
