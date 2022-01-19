@@ -3,11 +3,20 @@ require_relative '../model/user'
 require_relative '../model/quiz'
 
 class UserService
+
+  def find_all_users
+    User.all
+  end
+
+  def find_by_id(id)
+    User.find(id)
+  end
+
   def persist_user(request)
     parsed_request = JSON.parse(request.body.read)
     user_dto = validate_dto(parsed_request)
     user = User.create!(username: user_dto[:username], password: user_dto[:password])
-    user.to_json
+    user
   end
 
   def delete_user(id)

@@ -15,12 +15,11 @@ class UserController < Sinatra::Base
   end
 
   get '/user' do
-    "user controller"
+    @user_service.find_all_users.to_json
   end
 
-  get '/user/:testVar' do
-    header_test = request.env['HTTP_USER_AGENT']
-    "#{params[:testVar]} - path variable test | #{header_test} - header test"
+  get '/user/:id' do
+    @user_service.find_by_id(params[:id]).to_json
   end
 
   post '/user' do
