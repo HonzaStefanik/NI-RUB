@@ -15,14 +15,14 @@ ActiveRecord::Schema.define(version: 6) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "answer", force: :cascade do |t|
+  create_table "answers", force: :cascade do |t|
     t.text "answer"
     t.boolean "correct"
     t.bigint "quiz_id"
-    t.index ["quiz_id"], name: "index_answer_on_quiz_id"
+    t.index ["quiz_id"], name: "index_answers_on_quiz_id"
   end
 
-  create_table "category", force: :cascade do |t|
+  create_table "categories", force: :cascade do |t|
     t.string "name"
     t.text "description"
   end
@@ -34,20 +34,20 @@ ActiveRecord::Schema.define(version: 6) do
     t.index ["quiz_id"], name: "index_category_quiz_on_quiz_id"
   end
 
-  create_table "question", force: :cascade do |t|
+  create_table "questions", force: :cascade do |t|
     t.text "question"
     t.bigint "quiz_id"
-    t.index ["quiz_id"], name: "index_question_on_quiz_id"
+    t.index ["quiz_id"], name: "index_questions_on_quiz_id"
   end
 
-  create_table "quiz", force: :cascade do |t|
+  create_table "quizzes", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.bigint "user_id"
-    t.index ["user_id"], name: "index_quiz_on_user_id"
+    t.index ["user_id"], name: "index_quizzes_on_user_id"
   end
 
-  create_table "user", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password"
     t.string "salt"
