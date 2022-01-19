@@ -5,7 +5,7 @@ class UserService
   def persist_user(request)
     parsed_request = JSON.parse(request.body.read)
     user_dto = validate_dto(parsed_request)
-    user = User.create(name: user_dto['username'], password: user_dto['password'])
+    user = User.create(username: user_dto['username'], password: user_dto['password'])
     user.to_json
     #return result.to_h if result.success?
     # raise ArgumentError.new("Invalid request body #{result.errors.to_h}")
