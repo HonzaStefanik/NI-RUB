@@ -33,7 +33,7 @@ class QuizService
   def update_quiz(id, request)
     parsed_request = JSON.parse(request.body.read)
     quiz_dto = DtoValidator.validate_dto(QuizDto, parsed_request)
-    quiz = Quiz.find_by_id(id)
+    quiz = Quiz.find(id)
     quiz.update(
       name: quiz_dto[:name],
       description: quiz_dto[:description],
