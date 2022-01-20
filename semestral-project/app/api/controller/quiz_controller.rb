@@ -23,7 +23,7 @@ class QuizController < Sinatra::Base
   end
 
   post '/quiz' do
-
+    @quiz_service.persist_quiz(request).to_json
   end
 
   delete '/quiz/:id' do
@@ -32,5 +32,20 @@ class QuizController < Sinatra::Base
 
   put '/quiz/:id' do
 
+  end
+
+  error ArgumentError do
+    status 400
+    env['sinatra.error'].message
+  end
+
+  error ActiveRecord::RecordNotFound do
+    status 404
+    "User with id #{params[:id]} was not found."
+  end
+
+  error ActiveRecord::InvalidForeignKey do
+    status 404
+    "Foreign key doesn't exist."
   end
 end
