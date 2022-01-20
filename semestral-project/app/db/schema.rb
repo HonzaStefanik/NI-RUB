@@ -27,11 +27,11 @@ ActiveRecord::Schema.define(version: 6) do
     t.text "description"
   end
 
-  create_table "category_quiz", id: false, force: :cascade do |t|
+  create_table "categories_quizzes", id: false, force: :cascade do |t|
     t.bigint "quiz_id"
     t.bigint "category_id"
-    t.index ["category_id"], name: "index_category_quiz_on_category_id"
-    t.index ["quiz_id"], name: "index_category_quiz_on_quiz_id"
+    t.index ["category_id"], name: "index_categories_quizzes_on_category_id"
+    t.index ["quiz_id"], name: "index_categories_quizzes_on_quiz_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 6) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
-    t.string "salt"
   end
 
 end
