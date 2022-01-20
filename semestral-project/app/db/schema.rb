@@ -52,4 +52,5 @@ ActiveRecord::Schema.define(version: 6) do
     t.string "password_digest"
   end
 
+  add_foreign_key "quizzes", "users"
 end
