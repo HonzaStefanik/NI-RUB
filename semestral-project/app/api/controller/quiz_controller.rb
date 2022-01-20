@@ -27,11 +27,11 @@ class QuizController < Sinatra::Base
   end
 
   delete '/quiz/:id' do
-
+    @quiz_service.delete_quiz(params[:id]).to_json
   end
 
   put '/quiz/:id' do
-
+    @quiz_service.update_quiz(params[:id], request).to_json
   end
 
   error ArgumentError do
@@ -41,7 +41,7 @@ class QuizController < Sinatra::Base
 
   error ActiveRecord::RecordNotFound do
     status 404
-    "User with id #{params[:id]} was not found."
+    "Quiz with id #{params[:id]} was not found."
   end
 
   error ActiveRecord::InvalidForeignKey do
