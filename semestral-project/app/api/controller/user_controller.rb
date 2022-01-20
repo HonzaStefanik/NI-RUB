@@ -15,7 +15,7 @@ class UserController < Sinatra::Base
   end
 
   get '/user' do
-    @user_service.find_all_users.to_json
+    @user_service.find_all.to_json
   end
 
   get '/user/:id' do

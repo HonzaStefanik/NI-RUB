@@ -5,7 +5,7 @@ require_relative '../util/dto_validator'
 
 class UserService
 
-  def find_all_users
+  def find_all
     User.all
   end
 

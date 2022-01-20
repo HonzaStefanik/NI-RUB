@@ -15,11 +15,11 @@ class QuizController < Sinatra::Base
   end
 
   get '/quiz' do
-    "quiz controller"
+    @quiz_service.find_all.to_json
   end
 
   get '/quiz/:id' do
-
+    @quiz_service.find_by_id(params[:id]).to_json
   end
 
   post '/quiz' do
