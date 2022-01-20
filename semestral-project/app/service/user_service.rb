@@ -37,7 +37,7 @@ class UserService
   def update_user(id, request)
     parsed_request = JSON.parse(request.body.read)
     user_dto = DtoValidator.validate_dto(UserDto, parsed_request)
-    user = find_by_id(id)
+    user = User.find(id)
     user.update(
       username: user_dto[:username],
       password: user_dto[:password]

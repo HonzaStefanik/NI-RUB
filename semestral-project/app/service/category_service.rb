@@ -33,7 +33,7 @@ class CategoryService
   def update_category(id, request)
     parsed_request = JSON.parse(request.body.read)
     category_dto = DtoValidator.validate_dto(CategoryDto, parsed_request)
-    category = Category.find_by_id(id)
+    category = Category.find(id)
     category.update(
       name: category_dto[:name],
       description: category_dto[:description]
