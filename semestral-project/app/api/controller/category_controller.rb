@@ -41,7 +41,7 @@ class CategoryController < Sinatra::Base
 
   error ActiveRecord::RecordNotFound do
     status 404
-    "Quiz with id #{params[:id]} was not found."
+    "Category with id #{params[:id]} was not found."
   end
 
   error ActiveRecord::InvalidForeignKey do
