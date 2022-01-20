@@ -15,13 +15,23 @@ class UserService
   def persist_user(request)
     parsed_request = JSON.parse(request.body.read)
     user_dto = validate_dto(parsed_request)
-    user = User.create!(username: user_dto[:username], password: user_dto[:password])
-    user
+    User.create!(username: user_dto[:username], password: user_dto[:password])
   end
 
   def delete_user(id)
     User.destroy(id)
     nil
+  end
+
+  def update_user(id, request)
+    parsed_request = JSON.parse(request.body.read)
+    user_dto = validate_dto(parsed_request)
+    user = find_by_id(id)
+    user.update(
+      username: user_dto[:username],
+      password: user_dto[:password]
+    )
+    user
   end
 
   private

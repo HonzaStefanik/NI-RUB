@@ -31,6 +31,11 @@ class UserController < Sinatra::Base
     @user_service.delete_user(params[:id])
   end
 
+  put '/user/:id' do
+    @user_service.update_user(params[:id], request).to_json
+  end
+
+
   error ArgumentError do
     status 400
     env['sinatra.error'].message
