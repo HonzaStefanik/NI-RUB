@@ -4,15 +4,17 @@ require_relative '../model/question'
 require_relative '../model/category'
 require_relative '../util/dto_validator'
 
-# todo replace methods returning entity objects with DTOs
 class QuizService
 
   def find_all
-    Quiz.all
+    create_return_dto(Quiz.all)
   end
 
   def find_by_id(id)
-    Quiz.find(id)
+    quiz = Quiz.find(id)
+    # todo rename relations to plural so it looks correct
+    quiz_questions = quiz.question
+    create_return_dto(quiz, quiz_questions)
   end
 
   def persist_quiz(request)
@@ -42,4 +44,17 @@ class QuizService
     quiz
   end
 
+  private
+  def create_return_dto(quiz, questions = {})
+    simplified_questions = questions.map { |question|
+        { "id" => question.id, "question" => question.question}
+    }
+    dto = QuizDto.new
+    dto.call(
+      name: quiz.name,
+      description: quiz.description,
+      user_id: quiz.user_id,
+      questions: simplified_questions
+    ).to_h
+  end
 end
