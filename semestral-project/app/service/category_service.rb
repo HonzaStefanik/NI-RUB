@@ -6,7 +6,6 @@ class CategoryService
 
   def find_all
     Category.all.each do |category|
-      puts category.attributes
       create_return_dto(category)
     end
   end
