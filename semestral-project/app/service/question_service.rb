@@ -7,16 +7,17 @@ class QuestionService
 
   def find_all(show_answers = false)
     Question.all.each do |question|
-      question_answers = Question.joins(:answer)
+      question_answers = Answer.joins(:question)
                          .where(questions: { id: question.id })
                          .where(answers: { question_id: question.id })
+      puts question_answers
       create_return_dto(question, question_answers, show_answers)
     end
   end
 
   def find_by_id(id, show_answers = false)
     question = Question.find(id)
-    question_answers = Question.joins(:answer)
+    question_answers = Answer.joins(:question)
                              .where(questions: { id: question.id })
                              .where(answers: { question_id: question.id })
     create_return_dto(question, question_answers, show_answers)
@@ -52,6 +53,7 @@ class QuestionService
 
   def create_return_dto(question, answers = {}, show_solution = false)
     simplified_answers = answers.map { |answer|
+      puts answer.attributes
       if show_solution
         { "id" => answer.id, "answer" => answer.answer}
       else
