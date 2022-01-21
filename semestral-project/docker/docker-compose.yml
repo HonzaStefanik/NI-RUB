@@ -18,7 +18,4 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: root
-      POSTGRESS_DB: ruby_sem_projecth
-    # uncomment to get persistent data when starting up and shutting down the container
-    #volumes:
-    #  - database-data:/var/lib/postgresql/data/
+      POSTGRESS_DB: ruby_sem_project
