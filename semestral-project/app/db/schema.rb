@@ -52,5 +52,9 @@ ActiveRecord::Schema.define(version: 6) do
     t.string "password_digest"
   end
 
+  add_foreign_key "answers", "quizzes"
+  add_foreign_key "categories_quizzes", "categories"
+  add_foreign_key "categories_quizzes", "quizzes"
+  add_foreign_key "questions", "quizzes"
   add_foreign_key "quizzes", "users"
 end
