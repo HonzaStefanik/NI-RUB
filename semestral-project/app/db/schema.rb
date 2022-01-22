@@ -28,10 +28,8 @@ ActiveRecord::Schema.define(version: 6) do
   end
 
   create_table "categories_quizzes", id: false, force: :cascade do |t|
-    t.bigint "quiz_id"
-    t.bigint "category_id"
-    t.index ["category_id"], name: "index_categories_quizzes_on_category_id"
-    t.index ["quiz_id"], name: "index_categories_quizzes_on_quiz_id"
+    t.bigint "category_id", null: false
+    t.bigint "quiz_id", null: false
   end
 
   create_table "questions", force: :cascade do |t|
@@ -53,8 +51,6 @@ ActiveRecord::Schema.define(version: 6) do
   end
 
   add_foreign_key "answers", "questions"
-  add_foreign_key "categories_quizzes", "categories"
-  add_foreign_key "categories_quizzes", "quizzes"
   add_foreign_key "questions", "quizzes"
   add_foreign_key "quizzes", "users"
 end
