@@ -11,27 +11,35 @@ class QuizController < Sinatra::Base
 
   def initialize(app = nil)
     super
-    @category_service = QuizService.new
+    @quiz_service = QuizService.new
   end
 
   get '/quiz' do
-    @category_service.find_all.to_json
+    @quiz_service.find_all.to_json
   end
 
   get '/quiz/:id' do
-    @category_service.find_by_id(params[:id]).to_json
+    @quiz_service.find_by_id(params[:id]).to_json
   end
 
   post '/quiz' do
-    @category_service.persist_quiz(request).to_json
+    @quiz_service.persist_quiz(request).to_json
   end
 
   delete '/quiz/:id' do
-    @category_service.delete_quiz(params[:id]).to_json
+    @quiz_service.delete_quiz(params[:id]).to_json
   end
 
   put '/quiz/:id' do
-    @category_service.update_quiz(params[:id], request).to_json
+    @quiz_service.update_quiz(params[:id], request).to_json
+  end
+
+  put '/quiz/:quiz_id/category/:category_id' do
+    @quiz_service.add_category(params[:quiz_id], params[:category_id]).to_json
+  end
+
+  delete '/quiz/:quiz_id/category/:category_id' do
+    @quiz_service.remove_category(params[:quiz_id], params[:category_id]).to_json
   end
 
   error ArgumentError do

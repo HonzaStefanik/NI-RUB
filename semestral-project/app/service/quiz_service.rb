@@ -64,6 +64,22 @@ class QuizService
     create_return_dto(quiz, {}, categories)
   end
 
+  def add_category(quiz_id, category_id)
+    quiz = Quiz.find(quiz_id)
+    category = Category.find(category_id)
+    quiz.categories << category
+    quiz.save
+    create_return_dto(quiz, quiz.questions, quiz.categories)
+  end
+
+  def remove_category(quiz_id, category_id)
+    quiz = Quiz.find(quiz_id)
+    category = Category.find(category_id)
+    quiz.categories.delete(category)
+    quiz.save
+    create_return_dto(quiz, quiz.questions, quiz.categories)
+  end
+
   private
 
   def create_return_dto(quiz, questions = {}, categories = {})
