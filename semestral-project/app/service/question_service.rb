@@ -7,20 +7,14 @@ class QuestionService
 
   def find_all(show_answers = false)
     Question.all.each do |question|
-      # todo change to a simplified query and rename relations
-      question_answers = Answer.joins(:question)
-                         .where(questions: { id: question.id })
-                         .where(answers: { question_id: question.id })
+      question_answers = question.answers
       create_return_dto(question, question_answers, show_answers)
     end
   end
 
   def find_by_id(id, show_answers = false)
     question = Question.find(id)
-    # todo change to a simplified query and rename relations
-    question_answers = Answer.joins(:question)
-                             .where(questions: { id: question.id })
-                             .where(answers: { question_id: question.id })
+    question_answers = question.answers
     create_return_dto(question, question_answers, show_answers)
   end
 

@@ -12,8 +12,7 @@ class QuizService
 
   def find_by_id(id)
     quiz = Quiz.find(id)
-    # todo rename relations to plural so it looks correct
-    quiz_questions = quiz.question
+    quiz_questions = quiz.questions
     create_return_dto(quiz, quiz_questions)
   end
 
