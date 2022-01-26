@@ -36,6 +36,9 @@ class AuthenticationUtil
 
     def get_user_from_entity(entity_id, entity_type)
       # case statement didn't work for some reason
+      puts entity_id
+      puts entity_type
+      Answer.find(entity_id)
       return User.find(entity_id) if entity_type == User
       return Quiz.find(entity_id)&.user if entity_type == Quiz
       return Question.find(entity_id)&.quiz.user if entity_type == Question

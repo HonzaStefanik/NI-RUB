@@ -14,12 +14,12 @@ class AnswerService
     create_return_dto(Answer.find(id))
   end
 
-  def persist_answer(request)
-    parsed_request = JSON.parse(request.body.read)
-    answer_dto = DtoValidator.validate_dto(AnswerDto, parsed_request)
+  def persist_answer(data)
+    answer_dto = DtoValidator.validate_dto(AnswerDto, data)
     answer = Answer.create!(
       answer: answer_dto[:answer],
-      correct: answer_dto[:correct]
+      correct: answer_dto[:correct],
+      question_id: answer_dto[:question_id]
     )
     create_return_dto(answer)
   end
@@ -29,9 +29,8 @@ class AnswerService
     nil
   end
 
-  def update_answer(id, request)
-    parsed_request = JSON.parse(request.body.read)
-    answer_dto = DtoValidator.validate_dto(AnswerDto, parsed_request)
+  def update_answer(id, data)
+    answer_dto = DtoValidator.validate_dto(AnswerDto, data)
     answer = Answer.find(id)
     answer.update(
       answer: answer_dto[:answer],

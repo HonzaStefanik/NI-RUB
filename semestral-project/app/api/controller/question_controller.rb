@@ -44,7 +44,6 @@ class QuestionController < Sinatra::Base
       Question
     )
     @question_service.update_question(params[:id], parsed_request).to_json
-
   end
 
   delete '/question/:id' do
