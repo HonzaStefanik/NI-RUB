@@ -24,7 +24,8 @@ class UserController < Sinatra::Base
   end
 
   post '/user' do
-    @user_service.persist_user(request).to_json
+    parsed_request = JSON.parse(request.body.read)
+    @user_service.persist_user(parsed_request).to_json
   end
 
   delete '/user/:id' do
@@ -42,7 +43,8 @@ class UserController < Sinatra::Base
       params[:id],
       User
     )
-    @user_service.update_user(params[:id], request).to_json
+    parsed_request = JSON.parse(request.body.read)
+    @user_service.update_user(params[:id], parsed_request).to_json
   end
 
   error ArgumentError do

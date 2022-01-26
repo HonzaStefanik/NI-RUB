@@ -22,9 +22,8 @@ class UserService
     create_return_dto(user, user_quizzes)
   end
 
-  def persist_user(request)
-    parsed_request = JSON.parse(request.body.read)
-    user_dto = DtoValidator.validate_dto(UserDto, parsed_request)
+  def persist_user(data)
+    user_dto = DtoValidator.validate_dto(UserDto, data)
     user = User.create!(
       username: user_dto[:username],
       password: user_dto[:password],
@@ -38,9 +37,8 @@ class UserService
     nil
   end
 
-  def update_user(id, request)
-    parsed_request = JSON.parse(request.body.read)
-    user_dto = DtoValidator.validate_dto(UserDto, parsed_request)
+  def update_user(id, data)
+    user_dto = DtoValidator.validate_dto(UserDto, data)
     user = User.find(id)
     user.update(
       username: user_dto[:username],
