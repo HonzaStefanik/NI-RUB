@@ -2,6 +2,7 @@ require 'json'
 require 'active_record/errors'
 require_relative '../dto/user_dto'
 require_relative '../../service/user_service.rb'
+require_relative '../../util/authentication_util'
 
 class UserController < Sinatra::Base
   before do
@@ -26,15 +27,23 @@ class UserController < Sinatra::Base
     @user_service.persist_user(request).to_json
   end
 
-  # TODO add some form of auth to allow only the user himself to delete his record (decide later on token vs credentials)
   delete '/user/:id' do
+    AuthenticationUtil.authenticate(
+      request.env['HTTP_X_CREDENTIALS'],
+      params[:id],
+      User
+    )
     @user_service.delete_user(params[:id])
   end
 
   put '/user/:id' do
+    AuthenticationUtil.authenticate(
+      request.env['HTTP_X_CREDENTIALS'],
+      params[:id],
+      User
+    )
     @user_service.update_user(params[:id], request).to_json
   end
-
 
   error ArgumentError do
     status 400
@@ -44,6 +53,11 @@ class UserController < Sinatra::Base
   error ActiveRecord::RecordNotFound do
     status 404
     "User with id #{params[:id]} was not found."
+  end
+
+  error AuthenticationException do
+    status 403
+    env['sinatra.error'].message
   end
 
 end
