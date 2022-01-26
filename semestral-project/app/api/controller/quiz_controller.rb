@@ -30,6 +30,7 @@ class QuizController < Sinatra::Base
       parsed_request['user_id'],
       User
     )
+    status 201
     @quiz_service.persist_quiz(parsed_request).to_json end
 
   delete '/quiz/:id' do

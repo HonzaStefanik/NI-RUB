@@ -25,6 +25,7 @@ class UserController < Sinatra::Base
 
   post '/user' do
     parsed_request = JSON.parse(request.body.read)
+    status 201
     @user_service.persist_user(parsed_request).to_json
   end
 

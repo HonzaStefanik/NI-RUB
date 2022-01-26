@@ -23,6 +23,7 @@ class CategoryController < Sinatra::Base
   end
 
   post '/category' do
+    status 201
     @category_service.persist_category(request).to_json
   end
 

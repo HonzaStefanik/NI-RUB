@@ -30,6 +30,7 @@ class AnswerController < Sinatra::Base
       parsed_request['question_id'],
       Question
     )
+    status 201
     @answer_service.persist_answer(parsed_request).to_json
   end
 

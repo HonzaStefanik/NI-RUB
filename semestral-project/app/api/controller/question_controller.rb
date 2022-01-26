@@ -33,6 +33,7 @@ class QuestionController < Sinatra::Base
       parsed_request['quiz_id'],
       Quiz
     )
+    status 201
     @question_service.persist_question(parsed_request).to_json
   end
 
