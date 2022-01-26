@@ -20,9 +20,8 @@ class QuizService
     create_return_dto(quiz, quiz_questions, quiz_categories)
   end
 
-  def persist_quiz(request)
-    parsed_request = JSON.parse(request.body.read)
-    quiz_dto = DtoValidator.validate_dto(QuizDto, parsed_request)
+  def persist_quiz(data)
+    quiz_dto = DtoValidator.validate_dto(QuizDto, data)
     categories = quiz_dto[:category_ids].map { |category_id|
       begin
         Category.find(category_id)
@@ -44,9 +43,8 @@ class QuizService
     nil
   end
 
-  def update_quiz(id, request)
-    parsed_request = JSON.parse(request.body.read)
-    quiz_dto = DtoValidator.validate_dto(QuizDto, parsed_request)
+  def update_quiz(id, data)
+    quiz_dto = DtoValidator.validate_dto(QuizDto, data)
     quiz = Quiz.find(id)
     categories = quiz_dto[:category_ids].map { |category_id|
       begin
@@ -91,6 +89,7 @@ class QuizService
     }
     dto = QuizDto.new
     dto.call(
+      quiz_id: quiz.id,
       name: quiz.name,
       description: quiz.description,
       user_id: quiz.user_id,
