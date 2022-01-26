@@ -19,8 +19,7 @@ class AnswerService
     answer_dto = DtoValidator.validate_dto(AnswerDto, parsed_request)
     answer = Answer.create!(
       answer: answer_dto[:answer],
-      correct: answer_dto[:correct],
-      question_id: answer_dto[:question_id]
+      correct: answer_dto[:correct]
     )
     create_return_dto(answer)
   end

@@ -36,8 +36,7 @@ class QuestionService
     question_dto = DtoValidator.validate_dto(QuestionDto, data)
     question = Question.find(id)
     question.update(
-      question: question_dto[:question],
-      quiz_id: question_dto[:quiz_id]
+      question: question_dto[:question]
     )
     create_return_dto(question)
   end

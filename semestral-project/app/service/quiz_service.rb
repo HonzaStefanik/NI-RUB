@@ -55,8 +55,7 @@ class QuizService
     }.compact
     quiz.update(
       name: quiz_dto[:name],
-      description: quiz_dto[:description],
-      user_id: quiz_dto[:user_id]
+      description: quiz_dto[:description]
     )
     quiz.categories << categories
     create_return_dto(quiz, {}, categories)
