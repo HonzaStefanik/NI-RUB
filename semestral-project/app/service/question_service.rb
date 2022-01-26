@@ -18,9 +18,8 @@ class QuestionService
     create_return_dto(question, question_answers, show_answers)
   end
 
-  def persist_question(request)
-    parsed_request = JSON.parse(request.body.read)
-    question_dto = DtoValidator.validate_dto(QuestionDto, parsed_request)
+  def persist_question(data)
+    question_dto = DtoValidator.validate_dto(QuestionDto, data)
     question = Question.create!(
       question: question_dto[:question],
       quiz_id: question_dto[:quiz_id]
@@ -33,9 +32,8 @@ class QuestionService
     nil
   end
 
-  def update_question(id, request)
-    parsed_request = JSON.parse(request.body.read)
-    question_dto = DtoValidator.validate_dto(QuestionDto, parsed_request)
+  def update_question(id, data)
+    question_dto = DtoValidator.validate_dto(QuestionDto, data)
     question = Question.find(id)
     question.update(
       question: question_dto[:question],

@@ -2,6 +2,7 @@ require 'json'
 require 'active_record/errors'
 require_relative '../dto/question_dto'
 require_relative '../../service/question_service.rb'
+require_relative '../../util/authentication_util'
 
 class QuestionController < Sinatra::Base
   before do
@@ -26,15 +27,32 @@ class QuestionController < Sinatra::Base
   end
 
   post '/question' do
-    @question_service.persist_question(request).to_json
+    parsed_request = JSON.parse(request.body.read)
+    AuthenticationUtil.authenticate(
+      request.env['HTTP_X_CREDENTIALS'],
+      parsed_request['quiz_id'],
+      Quiz
+    )
+    @question_service.persist_question(parsed_request).to_json
   end
 
   put '/question/:id' do
-    @question_service.update_question(params[:id], request).to_json
+    parsed_request = JSON.parse(request.body.read)
+    AuthenticationUtil.authenticate(
+      request.env['HTTP_X_CREDENTIALS'],
+      params[:id],
+      Question
+    )
+    @question_service.update_question(params[:id], parsed_request).to_json
 
   end
 
   delete '/question/:id' do
+    AuthenticationUtil.authenticate(
+      request.env['HTTP_X_CREDENTIALS'],
+      params[:id],
+      Question
+    )
     @question_service.delete_question(params[:id])
   end
 
@@ -51,5 +69,10 @@ class QuestionController < Sinatra::Base
   error ActiveRecord::InvalidForeignKey do
     status 404
     "Foreign key doesn't exist."
+  end
+
+  error AuthenticationException do
+    status 403
+    env['sinatra.error'].message
   end
 end
