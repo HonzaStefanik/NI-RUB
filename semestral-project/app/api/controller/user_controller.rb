@@ -55,9 +55,13 @@ class UserController < Sinatra::Base
     "User with id #{params[:id]} was not found."
   end
 
+  error ActiveRecord::RecordNotUnique do
+    status 400
+    "Username already exists."
+  end
+
   error AuthenticationException do
     status 403
     env['sinatra.error'].message
   end
-
 end
