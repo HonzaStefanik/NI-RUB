@@ -1,0 +1,21 @@
+version: '3'
+
+networks:
+  sem_project:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+
+services:
+  database:
+    image: "postgres"
+    networks:
+      sem_project:
+        ipv4_address: 172.20.0.5
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRESS_DB: ruby_sem_project

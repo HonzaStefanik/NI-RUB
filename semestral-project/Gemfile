@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+# 2.7.0 because I can't get 3 installed for some reason
+ruby '2.7.0'
+
+gem 'activerecord'
+gem 'pg'
+gem 'sinatra'
+gem 'json'
+gem 'dry-validation'
+gem 'bcrypt'
+gem 'base64'
